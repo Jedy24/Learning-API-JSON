@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Hash;
 
 class GoogleController extends Controller
 {
@@ -24,6 +25,7 @@ class GoogleController extends Controller
                 'name' => $userFromGoogle->getName(),
                 'email' => $userFromGoogle->getEmail(),
                 'google_id' => $userFromGoogle->getId(),
+                'password' => Hash::make('123456789'),
             ]);
 
             $newUser->save();

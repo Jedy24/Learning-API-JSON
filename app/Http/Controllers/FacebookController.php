@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Hash;
 
 class FacebookController extends Controller
 {
@@ -24,6 +25,7 @@ class FacebookController extends Controller
                 'name' => $userFromFacebook->getName(),
                 'email' => $userFromFacebook->getEmail(),
                 'facebook_id' => $userFromFacebook->getId(),
+                'password' => Hash::make('123456789'),
             ]);
 
             $newUser->save();
