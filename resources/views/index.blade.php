@@ -11,6 +11,7 @@
 
             <!-- JSON data button -->
             <a href="{{ route('json-data') }}" class="btn btn-info mb-2">View JSON Data</a>
+            <a href="{{ route('change-password') }}" class="btn btn-link">Change Password</a>
 
             @if(auth('web')->check())
                 <form action="{{ route('logout') }}" method="post">
@@ -37,6 +38,12 @@
                 </form>
             @endif
         @else
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <form method="POST" action="{{ route('login') }}" class="me-2">
                 @csrf
                 <div class="mb-3">
