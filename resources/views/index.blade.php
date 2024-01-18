@@ -1,11 +1,9 @@
-<!-- index.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Larasocial</title>
+    <title>Login Form</title>
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -18,6 +16,11 @@
     <nav class="navbar bg-primary navbar-dark shadow py-4">
         <div class="container">
             <span class="navbar-brand mb-0 h1">Navbar</span>
+
+            <div class="d-flex">
+                <a href="{{ route('index') }}" class="btn btn-link text-light me-2">Login</a>
+                <a href="{{ route('show-registration-form') }}" class="btn btn-link text-light">Register</a>
+            </div>
         </div>
     </nav>
     <div class="container py-5">
@@ -31,26 +34,49 @@
                             <h3>Email: {{ auth('web')->user()->email }}</h3>
                             <hr />
 
-                            <!-- Show the JSON data button -->
+                            <!-- JSON data button -->
                             <a href="{{ route('json-data') }}" class="btn btn-info mb-2">View JSON Data</a>
 
-                            @if(auth('web')->user()->google_id)
-                                <!-- Show the Google logout button -->
+                            @if(auth('web')->check())
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button class="btn btn-dark" type="submit">Logout</button>
+                            </form>
+                            @elseif(auth('web')->user()->google_id)
+                                <!-- Google logout button -->
                                 <form action="{{ route('logout-google') }}" method="post">
                                     @csrf
                                     <button class="btn btn-dark" type="submit">Logout Google</button>
                                 </form>
                             @elseif(auth('web')->user()->facebook_id)
-                                <!-- Show the Facebook logout button -->
+                                <!-- Facebook logout button -->
                                 <form action="{{ route('logout-facebook') }}" method="post">
                                     @csrf
                                     <button class="btn btn-dark" type="submit">Logout Facebook</button>
                                 </form>
-                            @endif
+                            @else
+                            <!-- User with unknown ID -->
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button class="btn btn-dark" type="submit">Logout</button>
+                            </form>
+                        @endif
+
                         @else
-                            <!-- Show the Google login button -->
+                            <form method="POST" action="{{ route('login') }}" class="me-2">
+                                @csrf
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                </div>
+                                <button type="submit" class="btn btn-success mb-2">Login</button>
+                            </form>
+
+                            <!-- Google login button -->
                             <a href="{{ route('redirect-google') }}" class="btn btn-danger">Login With Google</a>
-                            <!-- Show the Facebook login button -->
+                            <!-- Facebook login button -->
                             <a href="{{ route('redirect-facebook') }}" class="btn btn-primary">Login With Facebook</a>
                         @endauth
                     </div>
