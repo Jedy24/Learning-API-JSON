@@ -29,14 +29,15 @@ class HomeController extends Controller
 
     public function indexJson(Request $request)
     {
-        // Check if the user is authenticated
+        // Cek user authenticated
         if (Auth::check()) {
             $user = Auth::user();
 
-            // Return user data in JSON format
+            // Mengembalikan data user dalam JSON response
             return response()->json([
                 'name' => $user->name,
                 'email' => $user->email,
+                'password' => $user->password,
                 'provider' => $this->getAuthProvider($user),
             ]);
         } else {
@@ -46,7 +47,7 @@ class HomeController extends Controller
 
     private function getAuthProvider($user)
     {
-        // Determine the authentication provider based on user attributes
+        // Mengembalikan data provider sesuai cara login
         if ($user->google_id) {
             return 'google';
         } elseif ($user->facebook_id) {
