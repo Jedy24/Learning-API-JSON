@@ -30,6 +30,8 @@ class GoogleController extends Controller
 
             $newUser->save();
 
+
+            // config->auth
             auth('web')->login($newUser);
             session()->regenerate();
 
