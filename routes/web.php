@@ -11,7 +11,7 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-//Google
+// Google
 Route::get('login/google/redirect', [GoogleController::class, 'redirect'])
     ->middleware(['guest'])
     ->name('redirect-google');
@@ -24,7 +24,7 @@ Route::post('logout-google', [GoogleController::class, 'logout'])
     ->middleware(['auth'])
     ->name('logout-google');
 
-//Facebook
+// Facebook
 Route::get('login/facebook/redirect', [FacebookController::class, 'redirect'])
     ->middleware(['guest'])
     ->name('redirect-facebook');
@@ -37,6 +37,7 @@ Route::post('logout-facebook', [FacebookController::class, 'logout'])
     ->middleware(['auth'])
     ->name('logout-facebook');
 
+// Menampilkan JSON data
 Route::get('/json', [HomeController::class, 'indexJson'])->name('json-data');
 
 // Registrasi dan Login Manual
