@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('/');
     }
 
     public function indexJson(Request $request)
@@ -52,6 +52,8 @@ class HomeController extends Controller
             return 'google';
         } elseif ($user->facebook_id) {
             return 'facebook';
+        } elseif($user->github_id){
+            return 'github';
         }
 
         return 'unknown';
