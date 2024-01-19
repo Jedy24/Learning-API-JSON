@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -38,6 +39,19 @@ Route::post('logout-facebook', [FacebookController::class, 'logout'])
     ->middleware(['auth'])
     ->name('logout-facebook');
 
+// GitHub
+Route::get('login/github/redirect', [GitHubController::class, 'redirect'])
+    ->middleware(['guest'])
+    ->name('redirect-github');
+
+Route::get('login/github/callback', [GitHubController::class, 'callback'])
+    ->middleware(['guest'])
+    ->name('callback');
+
+Route::post('logout-github', [GitHubController::class, 'logout'])
+    ->middleware(['auth'])
+    ->name('logout-github');
+
 // Menampilkan JSON data
 Route::get('/json', [HomeController::class, 'indexJson'])->name('json-data');
 
@@ -49,6 +63,10 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])
 Route::post('register', [RegisterController::class, 'register'])
     ->middleware(['guest'])
     ->name('register');
+
+Route::get('login', [LoginController::class, 'showLoginForm'])
+    ->middleware(['guest'])
+    ->name('login');
 
 Route::get('login', [LoginController::class, 'showLoginForm'])
     ->middleware(['guest'])
