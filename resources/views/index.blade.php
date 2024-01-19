@@ -30,6 +30,12 @@
                     @csrf
                     <button class="btn btn-dark" type="submit">Logout Facebook</button>
                 </form>
+            @elseif(auth('web')->user()->github_id)
+                <!-- GitHub logout button -->
+                <form action="{{ route('logout-github') }}" method="post">
+                    @csrf
+                    <button class="btn btn-dark" type="submit">Logout GitHub</button>
+                </form>
             @else
                 <!-- User with unknown ID -->
                 <form action="{{ route('logout') }}" method="post">
@@ -63,6 +69,8 @@
             <a href="{{ route('redirect-google') }}" class="btn btn-danger">Login With Google</a>
             <!-- Facebook login button -->
             <a href="{{ route('redirect-facebook') }}" class="btn btn-primary">Login With Facebook</a>
+            <!-- GitHub login button -->
+            <a href="{{ route('redirect-github') }}" class="btn btn-dark mt-2">Login With GitHub</a>
         @endauth
     </div>
 
