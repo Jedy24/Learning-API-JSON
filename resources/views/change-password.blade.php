@@ -6,7 +6,7 @@
     <div class="card-body">
         @if(session('error'))
             <div class="alert alert-danger">
-                {{ session('Error') }}
+                {{ session('error') }}
             </div>
         @endif
 
